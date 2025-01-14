@@ -33,7 +33,7 @@ const Home = () => {
             fontStyle: "italic",
           }}
         >
-          Artesanía con tradición y amor.
+          Artesanía con tradición, fe y amor.
         </Typography>
       </Box>
 
@@ -54,13 +54,31 @@ const Home = () => {
             color: "#19274e",
           }}
         >
-          Somos un emprendimiento dedicado a crear productos únicos con
-          dedicación y amor. Cada pieza cuenta una historia inspirada en la
-          tradición y la paz.
+          Enclavado en el corazón de Esmeraldas, "El Tesoro de las Monjitas" es
+          mucho más que un taller artesanal. Es un refugio de paz donde cada
+          creación lleva consigo el espíritu de generaciones que han dedicado
+          su vida a la contemplación, la oración y el arte. Aquí, las manos de
+          las hermanas transforman materiales simples en piezas llenas de
+          significado, que no solo decoran hogares, sino que también tocan el
+          alma.
+        </Typography>
+        <Typography
+          variant="body1"
+          sx={{
+            color: "#536d88",
+            marginTop: "10px",
+          }}
+        >
+          Todo comenzó hace décadas, cuando un pequeño grupo de monjas decidió
+          compartir su talento y creatividad con la comunidad. Inspiradas por
+          la belleza de la naturaleza que las rodea, las hermanas encontraron en
+          la artesanía una forma de expresar su fe y gratitud. Desde entonces,
+          "El Tesoro de las Monjitas" ha crecido para convertirse en un símbolo
+          de tradición, espiritualidad y calidad.
         </Typography>
       </Box>
 
-      {/* Sección de imágenes */}
+      {/* Sección de imágenes con texto */}
       <Grid
         container
         spacing={4}
@@ -77,7 +95,7 @@ const Home = () => {
             }}
           >
             <img
-              src="images/example1.jpg"
+              src="https://ocso.org/wp-content/uploads/2016/06/esmeraldas_11.jpg"
               alt="Producto 1"
               style={{
                 width: "100%",
@@ -107,15 +125,18 @@ const Home = () => {
               Nuestra Inspiración
             </Typography>
             <Typography variant="body1" sx={{ color: "#536d88" }}>
-              Inspirados en las tradiciones y valores que nos han acompañado
-              desde siempre, buscamos ofrecer productos que conecten con el
-              alma y llenen de paz cada hogar.
+              Inspiradas por la serenidad y la belleza que nos rodea, cada pieza
+              que creamos busca ser un reflejo de nuestra devoción y
+              espiritualidad. Nos esforzamos por convertir lo cotidiano en algo
+              extraordinario, y nuestras creaciones son una invitación a
+              conectar con la simplicidad y la paz que muchas veces se pierden
+              en el ajetreo de la vida moderna.
             </Typography>
           </Box>
         </Grid>
       </Grid>
 
-      {/* Otra imagen en tamaño completo */}
+      {/* Imagen destacada grande */}
       <Box
         sx={{
           width: "80%",
@@ -125,7 +146,7 @@ const Home = () => {
         }}
       >
         <img
-          src="images/example2.jpg"
+          src="https://ocso.org/wp-content/uploads/2016/06/esmeraldas_02-600x450_c.jpg"
           alt="Producto destacado"
           style={{
             width: "100%",
@@ -199,10 +220,10 @@ const Home = () => {
           Dirección: Monasterio Trapense St. Maria de la Esperanza, Esmeraldas
         </Typography>
         <Typography variant="body1" sx={{ color: "#536d88", marginBottom: "10px" }}>
-          Teléfono: (099876384)
+          Teléfono: (+593) 099876384
         </Typography>
         <Typography variant="body1" sx={{ color: "#536d88", marginBottom: "20px" }}>
-          Correo electrónico: (agrob@pucese.edu.ec)
+          Correo electrónico: agrob@pucese.edu.ec
         </Typography>
         <Button
           variant="contained"

@@ -71,14 +71,14 @@ function AdminPage() {
   };
 
   return (
-    <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
-      <Typography variant="h4" sx={{ mb: 3 }}>
+    <Container maxWidth="lg" sx={{ mt: 4, mb: 4, backgroundColor: "#f7f7f7", borderRadius: "8px", padding: "20px", boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)" }}>
+      <Typography variant="h4" sx={{ mb: 3, color: "#19274e", fontWeight: 700 }}>
         Panel de Administración
       </Typography>
 
       {/* Formulario para crear producto */}
-      <Paper sx={{ p: 3, mb: 4 }} elevation={3}>
-        <Typography variant="h6" gutterBottom>
+      <Paper sx={{ p: 3, mb: 4, backgroundColor: "#f7f7f7", borderRadius: "8px" }} elevation={3}>
+        <Typography variant="h6" gutterBottom sx={{ color: "#19274e" }}>
           Agregar Producto
         </Typography>
         <Box
@@ -91,6 +91,7 @@ function AdminPage() {
             value={name}
             onChange={(e) => setName(e.target.value)}
             required
+            sx={{ borderColor: "#536d88" }}
           />
           <TextField
             label="Descripción"
@@ -98,6 +99,7 @@ function AdminPage() {
             rows={3}
             value={description}
             onChange={(e) => setDescription(e.target.value)}
+            sx={{ borderColor: "#536d88" }}
           />
           <TextField
             label="Precio"
@@ -105,6 +107,7 @@ function AdminPage() {
             value={price}
             onChange={(e) => setPrice(e.target.value)}
             required
+            sx={{ borderColor: "#536d88" }}
           />
           <TextField
             label="Stock"
@@ -112,33 +115,40 @@ function AdminPage() {
             value={stock}
             onChange={(e) => setStock(e.target.value)}
             required
+            sx={{ borderColor: "#536d88" }}
           />
           <TextField
             label="Categoría"
             value={category}
             onChange={(e) => setCategory(e.target.value)}
             required
+            sx={{ borderColor: "#536d88" }}
           />
           <TextField
             label="URL de Imagen (opcional)"
             value={image}
             onChange={(e) => setImage(e.target.value)}
+            sx={{ borderColor: "#536d88" }}
           />
-          <Button variant="contained" color="primary" type="submit">
+          <Button
+            variant="contained"
+            sx={{ backgroundColor: "#19274e", color: "#ffffff", "&:hover": { backgroundColor: "#0f132e" } }}
+            type="submit"
+          >
             Crear Producto
           </Button>
         </Box>
       </Paper>
 
       {/* Lista de productos */}
-      <Typography variant="h6" gutterBottom>
+      <Typography variant="h6" gutterBottom sx={{ color: "#19274e" }}>
         Productos Existentes
       </Typography>
       <Grid container spacing={2}>
         {products.length > 0 ? (
           products.map((prod) => (
             <Grid item xs={12} sm={6} md={4} key={prod.id}>
-              <Card>
+              <Card sx={{ borderRadius: "8px", boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)", backgroundColor: "#f7f7f7" }}>
                 {prod.image && (
                   <CardMedia
                     component="img"
@@ -148,25 +158,17 @@ function AdminPage() {
                   />
                 )}
                 <CardContent>
-                  <Typography variant="h6">{prod.name}</Typography>
-                  <Typography variant="body2" color="text.secondary">
-                    Categoría: {prod.category}
-                  </Typography>
-                  <Typography variant="body2" color="text.secondary">
-                    Precio: {prod.price}
-                  </Typography>
-                  <Typography variant="body2" color="text.secondary">
-                    Stock: {prod.stock}
-                  </Typography>
-                  <Typography variant="body2" color="text.secondary">
-                    {prod.description}
-                  </Typography>
+                  <Typography variant="h6" sx={{ color: "#19274e" }}>{prod.name}</Typography>
+                  <Typography variant="body2" sx={{ color: "#536d88" }}>Categoría: {prod.category}</Typography>
+                  <Typography variant="body2" sx={{ color: "#536d88" }}>Precio: {prod.price}</Typography>
+                  <Typography variant="body2" sx={{ color: "#536d88" }}>Stock: {prod.stock}</Typography>
+                  <Typography variant="body2" sx={{ color: "#536d88" }}>{prod.description}</Typography>
                 </CardContent>
               </Card>
             </Grid>
           ))
         ) : (
-          <Typography sx={{ m: 2 }}>No hay productos aún.</Typography>
+          <Typography sx={{ m: 2, color: "#b49b85" }}>No hay productos aún.</Typography>
         )}
       </Grid>
     </Container>
