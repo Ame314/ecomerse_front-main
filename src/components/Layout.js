@@ -14,7 +14,7 @@ import {
 } from "@mui/material";
 import LogoutIcon from "@mui/icons-material/Logout";
 
-const drawerWidth = 240; // Ancho del menú lateral
+const drawerWidth = 200; // Ancho del menú lateral
 
 const Layout = ({ children }) => {
   const navigate = useNavigate();
@@ -37,10 +37,10 @@ const Layout = ({ children }) => {
       <CssBaseline />
 
       {/* Barra principal */}
-      <AppBar position="fixed" sx={{ backgroundColor: role === "admin" ? "purple" : "blue" }}>
+      <AppBar position="fixed" sx={{ backgroundColor: role === "admin" ? "#19274e" : "#536d88" }}>
         <Toolbar>
-          <Typography variant="h6" noWrap sx={{ flexGrow: 1 }}>
-            Mi Aplicación
+          <Typography variant="hMi Aplicación6" noWrap sx={{ flexGrow: 1 }}>
+          El tesoro de las monjitas -tienda
           </Typography>
           <Tooltip title="Cerrar Sesión">
             <LogoutIcon
@@ -72,6 +72,7 @@ const Layout = ({ children }) => {
             <ListItem button onClick={() => navigate("/products")}>
               <ListItemText primary="Productos" />
             </ListItem>
+            {/*por aca hay que poner lo del carrito  */}
             <ListItem button onClick={() => navigate("/orders/history")}>
               <ListItemText primary="Order History" />
             </ListItem>

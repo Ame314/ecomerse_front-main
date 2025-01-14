@@ -39,55 +39,117 @@ function Login() {
   };
 
   return (
-    <Container maxWidth="sm" sx={{ mt: 8 }}>
-      <Paper elevation={3} sx={{ p: 4 }}>
-        <Typography variant="h4" component="h1" gutterBottom>
-          Iniciar Sesión
-        </Typography>
-
-        {/* FORMULARIO */}
-        <Box
-          component="form"
-          onSubmit={handleLogin}
-          sx={{ display: "flex", flexDirection: "column", gap: 2 }}
+    <Box
+      sx={{
+        background: "linear-gradient(45deg, #536d88, #b49b85)", // Fondo degradado
+        minHeight: "100vh",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        padding: 2,
+      }}
+    >
+      <Container maxWidth="sm">
+        <Paper
+          elevation={5}
+          sx={{
+            padding: "40px",
+            backgroundColor: "rgba(25, 39, 78, 0.8)", // Fondo translúcido y elegante
+            borderRadius: "12px",
+            boxShadow: 8,
+            backdropFilter: "blur(10px)", // Efecto de desenfoque sutil
+          }}
         >
-          <TextField
-            label="Correo"
-            type="email"
-            variant="outlined"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-            fullWidth
-          />
-
-          <TextField
-            label="Contraseña"
-            type="password"
-            variant="outlined"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-            fullWidth
-          />
-
-          <Button variant="contained" color="primary" type="submit">
-            Entrar
-          </Button>
-        </Box>
-
-        <Box sx={{ mt: 2 }}>
-          <Typography variant="body1">
-            ¿Eres nuevo?{" "}
-            <Link to="/register" style={{ color: "#1976d2" }}>
-              Regístrate
-            </Link>
+          <Typography
+            variant="h3"
+            component="h1"
+            gutterBottom
+            sx={{
+              color: "#eac195",
+              fontWeight: 700,
+              textAlign: "center",
+              marginBottom: 3,
+              fontFamily: "'Roboto', sans-serif",
+            }}
+          >
+            Iniciar Sesión
           </Typography>
-        </Box>
-      </Paper>
-    </Container>
+
+          {/* FORMULARIO */}
+          <Box
+            component="form"
+            onSubmit={handleLogin}
+            sx={{
+              display: "flex",
+              flexDirection: "column",
+              gap: 3,
+              padding: "20px",
+            }}
+          >
+            <TextField
+              label="Correo"
+              type="email"
+              variant="outlined"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+              fullWidth
+              sx={{
+                backgroundColor: "#ffffff",
+                borderRadius: "8px",
+                input: {
+                  color: "#19274e",
+                },
+              }}
+            />
+
+            <TextField
+              label="Contraseña"
+              type="password"
+              variant="outlined"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+              fullWidth
+              sx={{
+                backgroundColor: "#ffffff",
+                borderRadius: "8px",
+                input: {
+                  color: "#19274e",
+                },
+              }}
+            />
+
+            <Button
+              variant="contained"
+              type="submit"
+              sx={{
+                backgroundColor: "#eac195",
+                "&:hover": {
+                  backgroundColor: "#b49b85",
+                },
+                padding: "15px",
+                fontSize: "16px",
+                borderRadius: "8px",
+                marginTop: "20px",
+              }}
+            >
+              Entrar
+            </Button>
+          </Box>
+
+          <Box sx={{ mt: 3, textAlign: "center" }}>
+            <Typography variant="body1" sx={{ color: "#eac195" }}>
+              ¿Eres nuevo?{" "}
+              <Link to="/register" style={{ color: "#eac195", fontWeight: 500 }}>
+                Regístrate
+              </Link>
+            </Typography>
+          </Box>
+        </Paper>
+      </Container>
+    </Box>
   );
 }
 
 export default Login;
-
