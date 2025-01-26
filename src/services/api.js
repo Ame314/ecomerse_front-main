@@ -42,6 +42,10 @@ export const sendPasswordResetRequest = async (email) => {
   return response.data;
 };
 
+export const resetPassword = async (token, newPassword) => {
+  const response = await api.post("/auth/reset-password", { token, newPassword });
+  return response.data;
+};
 
 // ============ FUNCIONES DE PRODUCTOS ============
 

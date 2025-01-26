@@ -11,6 +11,7 @@ import Checkout from "./pages/Checkout";
 import AdminPage from "./pages/AdminPage";
 import OrderProcessing from "./pages/OrderProcessing";
 import RequestPasswordReset from "./pages/RequestPasswordReset";
+import SetNewPassword from "./pages/SetNewPassword";
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
         {/* Rutas sin Layout */}
         <Route path="/login" element={<Login />} />
         <Route path="/reset-password" element={<RequestPasswordReset />} />
+        <Route path="/reset-password/reset" element={<SetNewPassword />} />
         <Route path="/register" element={<Register />} />
         {/* Rutas con Layout */}
         <Route
