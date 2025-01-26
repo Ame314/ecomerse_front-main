@@ -10,12 +10,15 @@ import OrderAll from "./pages/OrderAll";
 import Checkout from "./pages/Checkout";
 import AdminPage from "./pages/AdminPage";
 import OrderProcessing from "./pages/OrderProcessing";
+import RequestPasswordReset from "./pages/RequestPasswordReset";
+
 function App() {
   return (
     <Router>
       <Routes>
         {/* Rutas sin Layout */}
         <Route path="/login" element={<Login />} />
+        <Route path="/reset-password" element={<RequestPasswordReset />} />
         <Route path="/register" element={<Register />} />
         {/* Rutas con Layout */}
         <Route
@@ -34,14 +37,24 @@ function App() {
             </Layout>
           }
         />
-         <Route
+        <Route
           path="/"
+          element={
+            <Layout>
+              <Products />
+            </Layout>
+          }
+        />
+
+        <Route
+          path="/home"
           element={
             <Layout>
               <Home />
             </Layout>
           }
         />
+
         <Route
           path="/checkout"
           element={

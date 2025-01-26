@@ -140,6 +140,16 @@ function Login() {
 
           <Box sx={{ mt: 3, textAlign: "center" }}>
             <Typography variant="body1" sx={{ color: "#eac195" }}>
+              ¿Olvidaste tu contraseña?{" "}
+              <Link to="/reset-password" style={{ color: "#eac195", fontWeight: 500 }}>
+                Recuperar contraseña
+              </Link>
+            </Typography>
+          </Box>
+
+
+          <Box sx={{ mt: 3, textAlign: "center" }}>
+            <Typography variant="body1" sx={{ color: "#eac195" }}>
               ¿Eres nuevo?{" "}
               <Link to="/register" style={{ color: "#eac195", fontWeight: 500 }}>
                 Regístrate

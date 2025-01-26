@@ -37,6 +37,12 @@ export const loginUser = async (email, password) => {
   return response.data;
 };
 
+export const sendPasswordResetRequest = async (email) => {
+  const response = await api.post("/auth/request-password-reset", { email });
+  return response.data;
+};
+
+
 // ============ FUNCIONES DE PRODUCTOS ============
 
 export const getProducts = async (category, search) => {

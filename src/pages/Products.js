@@ -139,9 +139,8 @@ function Products() {
           sx={{ width: "30%" }}
         >{/*Cambiar esto poc cosas que existan en la tienda */}
           <MenuItem value="">Todas las Categorías</MenuItem>
-          <MenuItem value="Ropa">Ropa</MenuItem>
-          <MenuItem value="Electrónica">Electrónica</MenuItem>
-          <MenuItem value="Hogar">Hogar</MenuItem>
+          <MenuItem value="tuberculo">Tuberculo</MenuItem>
+          <MenuItem value="fruta">Fruta</MenuItem>
         </Select>
         <Button
           variant="contained"

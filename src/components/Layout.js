@@ -66,7 +66,7 @@ const Layout = ({ children }) => {
           }}
         >
           <List>
-            <ListItem button onClick={() => navigate("/")}>
+            <ListItem button onClick={() => navigate("/home")}>
               <ListItemText primary="Inicio" />
             </ListItem>
             <ListItem button onClick={() => navigate("/products")}>
