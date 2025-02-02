@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { createProduct, getProducts } from "../services/api";
+import { createProduct, getProducts, updateProduct, deleteProduct } from "../services/api";
 import {
   Container,
   Box,
@@ -12,6 +12,10 @@ import {
   Card,
   CardMedia,
   CardContent,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
 } from "@mui/material";
 
 function AdminPage() {
@@ -23,6 +27,10 @@ function AdminPage() {
   const [category, setCategory] = useState("");
   const [image, setImage] = useState("");
   const [products, setProducts] = useState([]);
+  const [openDialog, setOpenDialog] = useState(false);
+  const [productToDelete, setProductToDelete] = useState(null);
+  const [openEditDialog, setOpenEditDialog] = useState(false);
+  const [productToEdit, setProductToEdit] = useState(null);
 
   useEffect(() => {
     const storedRole = localStorage.getItem("role");
@@ -47,14 +55,7 @@ function AdminPage() {
   const handleCreateProduct = async (e) => {
     e.preventDefault();
     try {
-      const productData = {
-        name,
-        description,
-        price,
-        stock,
-        category,
-        image,
-      };
+      const productData = { name, description, price, stock, category, image };
       await createProduct(productData);
       alert("Producto creado con éxito");
       setName("");
@@ -66,6 +67,58 @@ function AdminPage() {
       fetchProducts();
     } catch (error) {
       alert("Error al crear producto");
+      console.error(error);
+    }
+  };
+
+  const handleDeleteProduct = async () => {
+    try {
+      await deleteProduct(productToDelete);
+      alert("Producto eliminado con éxito");
+      setOpenDialog(false);
+      fetchProducts();
+    } catch (error) {
+      alert("Error al eliminar producto");
+      console.error(error);
+    }
+  };
+
+  const handleOpenDialog = (productId) => {
+    setProductToDelete(productId);
+    setOpenDialog(true);
+  };
+
+  const handleCloseDialog = () => {
+    setOpenDialog(false);
+    setProductToDelete(null);
+  };
+
+  const handleOpenEditDialog = (product) => {
+    setProductToEdit(product);
+    setName(product.name);
+    setDescription(product.description);
+    setPrice(product.price);
+    setStock(product.stock);
+    setCategory(product.category);
+    setImage(product.image);
+    setOpenEditDialog(true);
+  };
+
+  const handleCloseEditDialog = () => {
+    setOpenEditDialog(false);
+    setProductToEdit(null);
+  };
+
+  const handleEditProduct = async (e) => {
+    e.preventDefault();
+    try {
+      const productData = { name, description, price, stock, category, image };
+      await updateProduct(productToEdit.id, productData);
+      alert("Producto actualizado con éxito");
+      setOpenEditDialog(false);
+      fetchProducts();
+    } catch (error) {
+      alert("Error al actualizar producto");
       console.error(error);
     }
   };
@@ -163,6 +216,21 @@ function AdminPage() {
                   <Typography variant="body2" sx={{ color: "#536d88" }}>Precio: {prod.price}</Typography>
                   <Typography variant="body2" sx={{ color: "#536d88" }}>Stock: {prod.stock}</Typography>
                   <Typography variant="body2" sx={{ color: "#536d88" }}>{prod.description}</Typography>
+                  <Button
+                    variant="outlined"
+                    sx={{ mt: 2, marginRight: 1 }}
+                    onClick={() => handleOpenEditDialog(prod)}
+                  >
+                    Editar Producto
+                  </Button>
+                  <Button
+                    variant="outlined"
+                    color="error"
+                    sx={{ mt: 2 }}
+                    onClick={() => handleOpenDialog(prod.id)}
+                  >
+                    Eliminar Producto
+                  </Button>
                 </CardContent>
               </Card>
             </Grid>
@@ -171,6 +239,81 @@ function AdminPage() {
           <Typography sx={{ m: 2, color: "#b49b85" }}>No hay productos aún.</Typography>
         )}
       </Grid>
+
+      {/* Dialog de confirmación para eliminar producto */}
+      <Dialog open={openDialog} onClose={handleCloseDialog}>
+        <DialogTitle>Confirmar Eliminación</DialogTitle>
+        <DialogContent>
+          <Typography variant="body1">¿Estás seguro de que quieres eliminar este producto permanentemente?</Typography>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleCloseDialog} color="primary">
+            Cancelar
+          </Button>
+          <Button onClick={handleDeleteProduct} color="secondary">
+            Eliminar
+          </Button>
+        </DialogActions>
+      </Dialog>
+
+      {/* Dialog de edición de producto */}
+      <Dialog open={openEditDialog} onClose={handleCloseEditDialog}>
+        <DialogTitle>Editar Producto</DialogTitle>
+        <DialogContent>
+          <Box
+            component="form"
+            onSubmit={handleEditProduct}
+            sx={{ display: "flex", flexDirection: "column", gap: 2 }}
+          >
+            <TextField
+              label="Nombre"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              required
+            />
+            <TextField
+              label="Descripción"
+              multiline
+              rows={3}
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
+            />
+            <TextField
+              label="Precio"
+              type="number"
+              value={price}
+              onChange={(e) => setPrice(e.target.value)}
+              required
+            />
+            <TextField
+              label="Stock"
+              type="number"
+              value={stock}
+              onChange={(e) => setStock(e.target.value)}
+              required
+            />
+            <TextField
+              label="Categoría"
+              value={category}
+              onChange={(e) => setCategory(e.target.value)}
+              required
+            />
+            <TextField
+              label="URL de Imagen (opcional)"
+              value={image}
+              onChange={(e) => setImage(e.target.value)}
+            />
+            <DialogActions>
+              <Button onClick={handleCloseEditDialog} color="primary">
+                Cancelar
+              </Button>
+              <Button type="submit" color="primary">
+                Guardar Cambios
+              </Button>
+            </DialogActions>
+          </Box>
+        </DialogContent>
+      </Dialog>
     </Container>
   );
 }
