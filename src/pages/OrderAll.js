@@ -7,7 +7,6 @@ import {
   AppBar,
   Toolbar,
   Typography,
-
   Container,
   Grid,
   Card,
@@ -17,9 +16,7 @@ import {
   ListItem,
   ListItemText,
   Divider,
-
 } from "@mui/material";
-
 
 function OrderAll() {
   const [orders, setOrders] = useState([]);
@@ -64,6 +61,10 @@ function OrderAll() {
                   </Typography>
                   <Typography variant="body1" sx={{ mb: 2 }}>
                     Total: {order.total_price}
+                  </Typography>
+                  <Typography variant="body1">
+                    Usuario: {order.user.name} 
+                    
                   </Typography>
                   <Divider />
 
