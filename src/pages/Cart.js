@@ -7,7 +7,6 @@ const Cart = () => {
   const navigate = useNavigate();
   const [cart, setCart] = useState([]);
 
-  
   // Cargar el carrito desde localStorage al inicio
   useEffect(() => {
     const storedCart = localStorage.getItem("cart");
@@ -29,16 +28,20 @@ const Cart = () => {
 
   const increaseQuantity = (index) => {
     const newCart = [...cart];
-    newCart[index].quantity += 1;
-    updateCart(newCart);
+    if (newCart[index].quantity < newCart[index].stock) {  // Verificar si hay stock disponible
+      newCart[index].quantity += 1;
+      updateCart(newCart);
+    } else {
+      alert("No hay suficiente stock para agregar más.");
+    }
   };
 
   const decreaseQuantity = (index) => {
     const newCart = [...cart];
     if (newCart[index].quantity > 1) {
       newCart[index].quantity -= 1;
+      updateCart(newCart);
     }
-    updateCart(newCart);
   };
 
   const handleCheckout = () => {
@@ -103,19 +106,28 @@ const Cart = () => {
 
               <Box sx={{ display: "flex", alignItems: "center" }}>
                 <Button onClick={() => decreaseQuantity(index)}>-</Button>
+                
                 <TextField
                   value={item.quantity}
                   onChange={(e) => {
                     const newCart = [...cart];
                     const newQuantity = parseInt(e.target.value);
-                    if (!isNaN(newQuantity) && newQuantity > 0) {
+                    if (!isNaN(newQuantity) && newQuantity > 0 && newQuantity <= item.stock) {  // Verificar si la cantidad es válida y no supera el stock
                       newCart[index].quantity = newQuantity;
                       updateCart(newCart);
+                    } else {
+                      alert("Cantidad no válida o fuera de stock.");
                     }
                   }}
                   sx={{ width: "50px", textAlign: "center" }}
                 />
-                <Button onClick={() => increaseQuantity(index)}>+</Button>
+                
+                <Button 
+                  onClick={() => increaseQuantity(index)}
+                  disabled={item.quantity >= item.stock}  // Deshabilitar el botón si no hay más stock
+                >
+                  +
+                </Button>
 
                 <Typography variant="body2" sx={{ marginLeft: "10px", color: "#19274e" }}>
                   Precio: ${roundPrice(item.price)} c/u
