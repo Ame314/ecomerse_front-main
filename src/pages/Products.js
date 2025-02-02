@@ -137,10 +137,10 @@ function Products() {
           variant="outlined"
           size="small"
           sx={{ width: "30%" }}
-        >{/*Cambiar esto poc cosas que existan en la tienda */}
+        >{/*Cambiar esto por cosas que existan en la tienda */}
           <MenuItem value="">Todas las Categorías</MenuItem>
-          <MenuItem value="tuberculo">Tuberculo</MenuItem>
-          <MenuItem value="fruta">Fruta</MenuItem>
+          <MenuItem value="Manualidades">Manualidades</MenuItem>
+          <MenuItem value="Cuidado Personal">Cuidado Personal</MenuItem>
         </Select>
         <Button
           variant="contained"
