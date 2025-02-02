@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { createProduct, getProducts, updateProduct, deleteProduct } from "../services/api";
+import { Snackbar, Alert } from "@mui/material"; // Importa los componentes necesarios
 import {
   Container,
   Box,
@@ -32,23 +33,55 @@ function AdminPage() {
   const [openEditDialog, setOpenEditDialog] = useState(false);
   const [productToEdit, setProductToEdit] = useState(null);
 
+  // Estado para las notificaciones
+  const [openSnackbar, setOpenSnackbar] = useState(false);
+  const [snackbarMessage, setSnackbarMessage] = useState("");
+
   useEffect(() => {
     const storedRole = localStorage.getItem("role");
     if (storedRole !== "admin") {
       alert("Acceso denegado. No eres administrador.");
       navigate("/login");
     } else {
-      fetchProducts();
+      const fetchData = async () => {
+        try {
+          const data = await getProducts();
+          setProducts(data);
+          checkLowStockProducts(data); // Verifica stock bajo
+        } catch (error) {
+          alert("Error al obtener productos - conecta bien lo de la base de datos");
+          console.error(error);
+        }
+      };
+      fetchData();
     }
-  }, [navigate]);
+  }, [navigate]); // Aquí no necesitas incluir fetchProducts
+  
 
   const fetchProducts = async () => {
     try {
       const data = await getProducts();
       setProducts(data);
+
+      // Verifica los productos con stock bajo o agotado
+      checkLowStockProducts(data);
     } catch (error) {
       alert("Error al obtener productos - conecta bien lo de la base de datos");
       console.error(error);
+    }
+  };
+
+  // Función para verificar stock bajo o agotado
+  const checkLowStockProducts = (data) => {
+    const lowStockProducts = data.filter((product) => product.stock <= 4);
+    const outOfStockProducts = data.filter((product) => product.stock === 0);
+
+    if (outOfStockProducts.length > 0) {
+      setSnackbarMessage("¡Algunos productos están agotados!");
+      setOpenSnackbar(true);
+    } else if (lowStockProducts.length > 0) {
+      setSnackbarMessage("¡Hay productos con stock bajo!");
+      setOpenSnackbar(true);
     }
   };
 
@@ -121,6 +154,11 @@ function AdminPage() {
       alert("Error al actualizar producto");
       console.error(error);
     }
+  };
+
+  // Función para cerrar la notificación
+  const handleCloseSnackbar = () => {
+    setOpenSnackbar(false);
   };
 
   return (
@@ -240,6 +278,17 @@ function AdminPage() {
         )}
       </Grid>
 
+      {/* Notificación de stock bajo o agotado */}
+      <Snackbar
+        open={openSnackbar}
+        autoHideDuration={6000}
+        onClose={handleCloseSnackbar}
+      >
+        <Alert onClose={handleCloseSnackbar} severity="warning" sx={{ width: "100%" }}>
+          {snackbarMessage}
+        </Alert>
+      </Snackbar>
+
       {/* Dialog de confirmación para eliminar producto */}
       <Dialog open={openDialog} onClose={handleCloseDialog}>
         <DialogTitle>Confirmar Eliminación</DialogTitle>
@@ -299,17 +348,13 @@ function AdminPage() {
               required
             />
             <TextField
-              label="URL de Imagen (opcional)"
+              label="URL de Imagen"
               value={image}
               onChange={(e) => setImage(e.target.value)}
             />
             <DialogActions>
-              <Button onClick={handleCloseEditDialog} color="primary">
-                Cancelar
-              </Button>
-              <Button type="submit" color="primary">
-                Guardar Cambios
-              </Button>
+              <Button onClick={handleCloseEditDialog}>Cancelar</Button>
+              <Button type="submit">Guardar Cambios</Button>
             </DialogActions>
           </Box>
         </DialogContent>

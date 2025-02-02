@@ -44,12 +44,17 @@ function Products() {
   const fetchProducts = async (cat, s) => {
     try {
       const data = await getProducts(cat, s);
-      setProducts(data);
+      
+      // Filtra los productos que tienen stock mayor a 0
+      const availableProducts = data.filter((product) => product.stock > 0);
+      
+      setProducts(availableProducts); // Establece solo los productos disponibles en el estado
     } catch (error) {
       alert("Error al obtener productos");
       console.error(error);
     }
   };
+  
 
   const handleFilter = () => {
     fetchProducts(category, search);
