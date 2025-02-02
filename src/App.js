@@ -12,6 +12,7 @@ import AdminPage from "./pages/AdminPage";
 import OrderProcessing from "./pages/OrderProcessing";
 import RequestPasswordReset from "./pages/RequestPasswordReset";
 import SetNewPassword from "./pages/SetNewPassword";
+import Cart from "./pages/Cart"; 
 
 function App() {
   return (
@@ -86,6 +87,16 @@ function App() {
           element={
             <Layout>
               <OrderProcessing />
+            </Layout>
+          }
+          
+        />
+
+        <Route
+          path="/cart"
+          element={
+            <Layout>
+              <Cart />
             </Layout>
           }
         />

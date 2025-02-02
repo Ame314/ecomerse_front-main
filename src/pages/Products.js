@@ -27,13 +27,19 @@ function Products() {
   const [products, setProducts] = useState([]);
   const [category, setCategory] = useState("");
   const [search, setSearch] = useState("");
-  const [cart, setCart] = useState([]);
+  const [cart, setCart] = useState(
+    JSON.parse(localStorage.getItem("cart")) || [] // Cargar el carrito desde el almacenamiento
+  );
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [currentIndex, setCurrentIndex] = useState(0);
 
   useEffect(() => {
     fetchProducts();
   }, []);
+
+  useEffect(() => {
+    localStorage.setItem("cart", JSON.stringify(cart)); // Guardar el carrito en localStorage
+  }, [cart]);
 
   const fetchProducts = async (cat, s) => {
     try {
@@ -63,7 +69,6 @@ function Products() {
   };
 
   const handleCheckout = () => {
-    localStorage.setItem("cart", JSON.stringify(cart));
     navigate("/checkout");
   };
 
@@ -110,7 +115,7 @@ function Products() {
           marginBottom: "20px",
         }}
       >
-        Lista de Productos
+        Nuestros Productos
       </Typography>
 
       {/* Filtros */}
@@ -137,13 +142,12 @@ function Products() {
           variant="outlined"
           size="small"
           sx={{ width: "30%" }}
-        >{/*Cambiar esto por cosas que existan en la tienda */}
+        >
           <MenuItem value="">Todas las Categorías</MenuItem>
           <MenuItem value="Manualidades">Manualidades</MenuItem>
           <MenuItem value="Cuidado Personal">Cuidado Personal</MenuItem>
           <MenuItem value="Alimentos">Alimentos</MenuItem>
-          <MenuItem value="Cuidado Personal">Cuidado Personal</MenuItem>
-          <MenuItem value="Manualidades">Artesanías</MenuItem>
+          <MenuItem value="Artesanías">Artesanías</MenuItem>
         </Select>
         <Button
           variant="contained"
@@ -165,13 +169,18 @@ function Products() {
         {products.map((prod, index) => (
           <Grid item xs={12} sm={6} md={4} key={prod.id}>
             <Card
-              sx={{ boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)" }}
+              sx={{
+                boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
+                cursor: "pointer",
+                "&:hover": { transform: "scale(1.05)" },
+                transition: "0.3s",
+              }}
               onClick={() => handleOpenProduct(index)}
             >
               {prod.image && (
                 <CardMedia
                   component="img"
-                  height="140"
+                  height="180"
                   image={prod.image}
                   alt={prod.name}
                 />

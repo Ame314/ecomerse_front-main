@@ -76,6 +76,10 @@ const Layout = ({ children }) => {
             <ListItem button onClick={() => navigate("/orders/history")}>
               <ListItemText primary="Order History" />
             </ListItem>
+            <ListItem button onClick={() => navigate("/cart")}>
+              <ListItemText primary="Carrito" />
+            </ListItem>
+
             {role === "admin" && (
               <>
                 <ListItem button onClick={() => navigate("/admin/orders")}>
