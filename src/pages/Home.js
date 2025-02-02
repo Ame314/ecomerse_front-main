@@ -54,13 +54,9 @@ const Home = () => {
             color: "#19274e",
           }}
         >
-          Enclavado en el corazón de Esmeraldas, "El Tesoro de las Monjitas" es
-          mucho más que un taller artesanal. Es un refugio de paz donde cada
-          creación lleva consigo el espíritu de generaciones que han dedicado
-          su vida a la contemplación, la oración y el arte. Aquí, las manos de
-          las hermanas transforman materiales simples en piezas llenas de
-          significado, que no solo decoran hogares, sino que también tocan el
-          alma.
+          La Orden Cisterciense de la Estrecha Observancia, también conocida como “Trapenses”, forma parte de la familia Benedictina y tiene su origen en el año 1098. Somos una comunidad dedicada a la contemplación y la búsqueda de la unión con Dios, siguiendo la Regla de San Benito. Nuestra vida está centrada en la oración, el trabajo y la meditación, buscando siempre la paz interior y la devoción a Dios. A pesar de llevar una vida retirada en nuestros monasterios, donde el silencio y la serenidad nos permiten enfocarnos en la oración, nuestras acciones también impactan al mundo, siendo testigos de la fe y ofreciendo un refugio espiritual para aquellos que nos visitan.
+
+Nuestra vida monástica tiene como objetivo principal el amor de Cristo. Es una respuesta a su llamado para apartarnos de las distracciones del mundo y dedicarnos a Él con todo nuestro ser. A través de la oración continua y el trabajo en comunidad, cultivamos la paz y nos preparamos para la vida eterna con Dios.
         </Typography>
         <Typography
           variant="body1"
@@ -125,12 +121,9 @@ const Home = () => {
               Nuestra Inspiración
             </Typography>
             <Typography variant="body1" sx={{ color: "#536d88" }}>
-              Inspiradas por la serenidad y la belleza que nos rodea, cada pieza
-              que creamos busca ser un reflejo de nuestra devoción y
-              espiritualidad. Nos esforzamos por convertir lo cotidiano en algo
-              extraordinario, y nuestras creaciones son una invitación a
-              conectar con la simplicidad y la paz que muchas veces se pierden
-              en el ajetreo de la vida moderna.
+            En el corazón de Esmeraldas, "El Tesoro de las Monjitas" es mucho más que un simple taller artesanal. Es un espacio donde la paz y la dedicación a Dios se reflejan en cada pieza creada. Nuestras hermanas transforman materiales sencillos en objetos cargados de significado, cada uno de ellos nacido de la contemplación y la devoción. Estas creaciones no solo decoran, sino que tocan el alma, invitando a quien las vea a conectar con la serenidad y la belleza del mundo espiritual.
+
+Inspiradas por la naturaleza y la vida monástica, nuestras piezas reflejan la paz, la fe y la gratitud que nos acompañan en nuestra vida diaria. Cada objeto que creamos busca transformar lo cotidiano en algo extraordinario, invitando a todos a encontrar tranquilidad y equilibrio en medio del ajetreo de la vida moderna.
             </Typography>
           </Box>
         </Grid>
@@ -220,10 +213,10 @@ const Home = () => {
           Dirección: Monasterio Trapense St. Maria de la Esperanza, Esmeraldas
         </Typography>
         <Typography variant="body1" sx={{ color: "#536d88", marginBottom: "10px" }}>
-          Teléfono: (+593) 099876384
+          Teléfono: 593 (6) 370 0561
         </Typography>
         <Typography variant="body1" sx={{ color: "#536d88", marginBottom: "20px" }}>
-          Correo electrónico: agrob@pucese.edu.ec
+          Correo electrónico: ma.delaesperanza@gmail.com
         </Typography>
         <Button
           variant="contained"

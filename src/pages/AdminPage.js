@@ -39,7 +39,7 @@ function AdminPage() {
       const data = await getProducts();
       setProducts(data);
     } catch (error) {
-      alert("Error al obtener productos");
+      alert("Error al obtener productos - conecta bien lo de la base de datos");
       console.error(error);
     }
   };

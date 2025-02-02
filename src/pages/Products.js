@@ -141,6 +141,9 @@ function Products() {
           <MenuItem value="">Todas las Categorías</MenuItem>
           <MenuItem value="Manualidades">Manualidades</MenuItem>
           <MenuItem value="Cuidado Personal">Cuidado Personal</MenuItem>
+          <MenuItem value="Alimentos">Alimentos</MenuItem>
+          <MenuItem value="Cuidado Personal">Cuidado Personal</MenuItem>
+          <MenuItem value="Manualidades">Artesanías</MenuItem>
         </Select>
         <Button
           variant="contained"
