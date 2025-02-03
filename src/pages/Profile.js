@@ -1,119 +1,144 @@
+// src/pages/Profile.js
 import React, { useState, useEffect } from "react";
-import { TextField, Button, Typography, Box, Grid, Paper, Avatar } from "@mui/material";
+import { getCurrentUser, updateUser } from "../services/api";
+import {
+  Container,
+  Paper,
+  TextField,
+  Button,
+  Typography,
+  Box,
+} from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import { FaEnvelope, FaAddressCard } from "react-icons/fa";
 
-const Profile = () => {
+function Profile({ setLayoutTrigger }) {
+  // NOTA: Recibimos `setLayoutTrigger` como prop, 
+  // que nos pasará el Layout con React.cloneElement.
+
   const navigate = useNavigate();
+  const [userData, setUserData] = useState({
+    username: "",
+    email: "",
+    role: "",
+  });
+  const [editing, setEditing] = useState(false);
 
-  // Estado para los datos del perfil
-  const [userName, setUserName] = useState("");
-  const [email, setEmail] = useState("");
-  const [address, setAddress] = useState("");
-  const [isEditing, setIsEditing] = useState(false);
-
-  // Verificar si el usuario está logueado al cargar el componente
   useEffect(() => {
-    const storedUserName = localStorage.getItem("userName");
-    const storedEmail = localStorage.getItem("email");
-    const storedAddress = localStorage.getItem("address");
+    // Al montar, obtenemos la info del usuario
+    const fetchUser = async () => {
+      try {
+        const data = await getCurrentUser();
+        setUserData({
+          username: data.username,
+          email: data.email,
+          role: data.role,
+        });
+      } catch (error) {
+        console.error("Error al obtener el usuario:", error);
+        // Si el token no es válido, se podría redirigir al login
+        navigate("/login");
+      }
+    };
 
-    if (!storedUserName) {
-      alert("Por favor, inicie sesión.");
-      navigate("/login");  // Redirigir a la página de login
-    } else {
-      setUserName(storedUserName);
-      setEmail(storedEmail || "");
-      setAddress(storedAddress || "");
-    }
+    fetchUser();
   }, [navigate]);
 
-  // Función para guardar los datos actualizados en localStorage
-  const handleSave = () => {
-    // Guardar datos actualizados en localStorage
-    localStorage.setItem("userName", userName);
-    localStorage.setItem("email", email);
-    localStorage.setItem("address", address);
+  const handleChange = (e) => {
+    setUserData((prev) => ({
+      ...prev,
+      [e.target.name]: e.target.value,
+    }));
+  };
 
-    setIsEditing(false); // Desactivar el modo de edición
+  const handleEdit = () => {
+    setEditing(true);
+  };
+
+  const handleCancel = () => {
+    setEditing(false);
+  };
+
+  const handleSave = async () => {
+    try {
+      // 1. Actualizamos los datos en la base
+      const updatedData = await updateUser({
+        username: userData.username,
+        email: userData.email,
+      });
+      // updatedData = { id, username, email, role }
+
+      // 2. Actualizamos el estado local
+      setUserData({
+        ...updatedData,
+      });
+      setEditing(false);
+
+      // 3. Guardamos el username y el rol en localStorage
+      localStorage.setItem("username", updatedData.username);
+      localStorage.setItem("role", updatedData.role);
+
+      // 4. Forzamos re-render en el Layout (incrementa el "trigger")
+      if (setLayoutTrigger) {
+        setLayoutTrigger((prev) => prev + 1);
+      }
+
+      alert("Perfil actualizado correctamente");
+    } catch (error) {
+      console.error("Error al actualizar perfil:", error);
+      alert("Hubo un error al actualizar el perfil");
+    }
   };
 
   return (
-    <Box sx={{ display: "flex", justifyContent: "center", padding: 3 }}>
-      <Paper sx={{ padding: 3, width: "100%", maxWidth: 600 }}>
-        <Box sx={{ textAlign: "center", marginBottom: 3 }}>
-          <Avatar sx={{ width: 100, height: 100, marginBottom: 2, backgroundColor: "primary.main" }}>
-            {userName[0]?.toUpperCase()}
-          </Avatar>
-          <Typography variant="h4" gutterBottom>
-            {userName}
-          </Typography>
-        </Box>
+    <Container maxWidth="sm" sx={{ mt: 4 }}>
+      <Paper sx={{ p: 3 }}>
+        <Typography variant="h4" gutterBottom>
+          Mi Perfil
+        </Typography>
 
-        <Grid container spacing={2}>
-          {/* Campo Email */}
-          <Grid item xs={12}>
-            <Box sx={{ display: "flex", alignItems: "center" }}>
-              <FaEnvelope size={20} style={{ marginRight: 8 }} />
-              <TextField
-                label="Correo Electrónico"
-                fullWidth
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                disabled={!isEditing}
-              />
-            </Box>
-          </Grid>
+        <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
+          <TextField
+            label="Nombre de Usuario"
+            name="username"
+            value={userData.username}
+            onChange={handleChange}
+            disabled={!editing}
+            fullWidth
+          />
+          <TextField
+            label="Correo"
+            name="email"
+            value={userData.email}
+            onChange={handleChange}
+            disabled={!editing}
+            fullWidth
+          />
+          <TextField
+            label="Rol"
+            name="role"
+            value={userData.role}
+            disabled
+            fullWidth
+          />
 
-          {/* Campo Dirección */}
-          <Grid item xs={12}>
-            <Box sx={{ display: "flex", alignItems: "center" }}>
-              <FaAddressCard size={20} style={{ marginRight: 8 }} />
-              <TextField
-                label="Dirección"
-                fullWidth
-                value={address}
-                onChange={(e) => setAddress(e.target.value)}
-                disabled={!isEditing}
-              />
-            </Box>
-          </Grid>
-
-          {/* Botones de acción */}
-          <Grid item xs={12} sx={{ marginTop: 2 }}>
-            {!isEditing ? (
-              <Button
-                variant="contained"
-                color="primary"
-                onClick={() => setIsEditing(true)}
-                fullWidth
-              >
-                Editar Perfil
+          {!editing ? (
+            <Button variant="contained" onClick={handleEdit}>
+              Editar
+            </Button>
+          ) : (
+            <Box>
+              <Button variant="contained" onClick={handleSave} sx={{ mr: 2 }}>
+                Guardar
               </Button>
-            ) : (
-              <>
-                <Button
-                  variant="contained"
-                  color="primary"
-                  onClick={handleSave}
-                  sx={{ marginRight: 2 }}
-                >
-                  Guardar Cambios
-                </Button>
-                <Button
-                  variant="outlined"
-                  color="secondary"
-                  onClick={() => setIsEditing(false)}
-                >
-                  Cancelar
-                </Button>
-              </>
-            )}
-          </Grid>
-        </Grid>
+              <Button variant="outlined" onClick={handleCancel}>
+                Cancelar
+              </Button>
+            </Box>
+          )}
+        </Box>
       </Paper>
-    </Box>
+    </Container>
   );
-};
+}
 
 export default Profile;

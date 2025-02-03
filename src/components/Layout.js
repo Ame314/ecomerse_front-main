@@ -29,22 +29,25 @@ const Layout = ({ children }) => {
   const [open, setOpen] = useState(true); // Estado para mostrar u ocultar el menú lateral
   const [userName, setUserName] = useState(""); // Nombre del usuario
   const [cartItems, setCartItems] = useState(0); // Cantidad de artículos en el carrito
+  
+  const [trigger, setTrigger] = useState(0);
 
   // Obtener el rol y nombre del usuario desde localStorage
   useEffect(() => {
     const storedRole = localStorage.getItem("role");
-    const storedUserName = localStorage.getItem("userName"); // Asumiendo que el nombre del usuario está guardado
+    const storedUserName = localStorage.getItem("username") || "User";
+
     const storedCartItems = JSON.parse(localStorage.getItem("cartItems")) || 0; // Cantidad de artículos en el carrito
 
     setRole(storedRole || "user");
     setUserName(storedUserName);
     setCartItems(storedCartItems);
-  }, []);
+  }, [trigger]);
 
   const handleLogout = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("role");
-    localStorage.removeItem("userName");
+    localStorage.removeItem("username");
     localStorage.removeItem("cartItems");
     navigate("/login");
   };
@@ -186,7 +189,8 @@ const Layout = ({ children }) => {
 
         {/* Contenido principal */}
         <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
-          {children}
+          {/*children*/}
+          {React.cloneElement(children, { setLayoutTrigger: setTrigger })}
         </Box>
       </Box>
     </Box>

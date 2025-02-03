@@ -47,6 +47,18 @@ export const resetPassword = async (token, newPassword) => {
   return response.data;
 };
 
+// Obtener datos del usuario logueado
+export const getCurrentUser = async () => {
+  const response = await api.get("/auth/me");
+  return response.data; // { id, username, email, role }
+};
+
+// Actualizar datos del usuario logueado
+export const updateUser = async (userData) => {
+  const response = await api.put("/auth/me", userData);
+  return response.data; // { id, username, email, role }
+};
+
 // ============ FUNCIONES DE PRODUCTOS ============
 
 export const getProducts = async (category, search) => {
