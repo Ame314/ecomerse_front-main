@@ -24,7 +24,7 @@ const Home = () => {
             marginBottom: "10px",
           }}
         >
-          El Tesoro de las Monjitas
+          Monasterio de Santa María de la Esperanza
         </Typography>
         <Typography
           variant="subtitle1"
@@ -33,7 +33,7 @@ const Home = () => {
             fontStyle: "italic",
           }}
         >
-          Artesanía con tradición, fe y amor.
+          Orden Cisterciense de la Estrecha Observancia.
         </Typography>
       </Box>
 

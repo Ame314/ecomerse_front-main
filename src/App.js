@@ -13,6 +13,8 @@ import OrderProcessing from "./pages/OrderProcessing";
 import RequestPasswordReset from "./pages/RequestPasswordReset";
 import SetNewPassword from "./pages/SetNewPassword";
 import Cart from "./pages/Cart"; 
+import Profile from "./pages/Profile"; // Asegúrate de importar el componente Profile
+
 
 function App() {
   return (
@@ -23,7 +25,16 @@ function App() {
         <Route path="/reset-password" element={<RequestPasswordReset />} />
         <Route path="/reset-password/reset" element={<SetNewPassword />} />
         <Route path="/register" element={<Register />} />
+        
         {/* Rutas con Layout */}
+        <Route
+          path="/profile"
+          element={
+            <Layout>
+              <Profile />
+            </Layout>
+          }
+        />
         <Route
           path="/products"
           element={
@@ -48,7 +59,6 @@ function App() {
             </Layout>
           }
         />
-
         <Route
           path="/home"
           element={
@@ -57,7 +67,6 @@ function App() {
             </Layout>
           }
         />
-
         <Route
           path="/checkout"
           element={
@@ -89,9 +98,7 @@ function App() {
               <OrderProcessing />
             </Layout>
           }
-          
         />
-
         <Route
           path="/cart"
           element={

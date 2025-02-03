@@ -197,6 +197,19 @@ function Products() {
                 >
                   {prod.name}
                 </Typography>
+                <Typography sx={{ color: "#536d88" }}>
+                  ${prod.price}
+                </Typography>
+                <Typography
+                  sx={{
+                    color: "#536d88",
+                    fontSize: "0.85rem",
+                    fontStyle: "italic",
+                    mt: 1,
+                  }}
+                >
+                  Ver detalles
+                </Typography>
               </CardContent>
             </Card>
           </Grid>
@@ -205,7 +218,7 @@ function Products() {
 
       {/* Modal de Producto */}
       {selectedProduct && (
-        <Dialog open={!!selectedProduct} onClose={handleCloseModal} fullWidth>
+        <Dialog open={!!selectedProduct} onClose={handleCloseModal} fullWidth maxWidth="md">
           <DialogContent
             sx={{
               position: "relative",
@@ -241,15 +254,15 @@ function Products() {
             </Typography>
             <CardMedia
               component="img"
-              height="300"
+              height="400"
               image={selectedProduct.image}
               alt={selectedProduct.name}
-              sx={{ margin: "20px auto", maxHeight: "300px", maxWidth: "100%" }}
+              sx={{ margin: "20px auto", maxHeight: "400px", maxWidth: "100%" }}
             />
             <Typography sx={{ color: "#536d88" }}>
               Categoría: {selectedProduct.category}
             </Typography>
-            <Typography sx={{ color: "#536d88" }}>
+            <Typography sx={{ color: "#536d88", fontWeight: 700 }}>
               Precio: ${selectedProduct.price}
             </Typography>
             <Typography sx={{ mt: 2, color: "#536d88" }}>
